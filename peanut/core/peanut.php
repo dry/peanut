@@ -18,6 +18,7 @@ class Peanut {
 	private $plugins_enabled;
 	private $left_delim = '{';
 	private $right_delim = '}';
+	private $file_extension = '.html';
 
 	// Default variables
 	private $pages_folder = 'pages';
@@ -27,6 +28,7 @@ class Peanut {
 	private $pages = array();
 	private $pages_content = array();
 	private $request;
+	private $parser;
 	private $output_layout;
 	private $unparsed_output;
 	private $output;
@@ -49,7 +51,11 @@ class Peanut {
 		$this->parse_request();
 		$this->determine_content();
 		$this->remove_meta_keys();
+		$this->initialise_text_parser();
 		$this->parse_content();
+
+		$this->debug($this);exit;
+
 		$this->output_content();
 	}
 
@@ -67,6 +73,14 @@ class Peanut {
 		exit;
 	}
 
+	/**
+	 * Parse the content for this request. This is where we check whether any content
+	 * keys are arrays - arrays are going to be blocks of text that should be run
+	 * through the text parser.
+	 * 
+	 * @access	private
+	 * @return	void
+	 */ 
 	private function parse_content()
 	{
 		$output = '';
@@ -75,7 +89,7 @@ class Peanut {
 		{
 			$body = implode(NL.NL, $this->unparsed_output['body']);
 
-			$this->unparsed_output['body'] = $body;
+			$this->unparsed_output['body'] = $this->parser->parse($body);
 
 			if ($this->output_layout)
 			{
@@ -103,6 +117,20 @@ class Peanut {
 	}
 
 	/**
+	 * The text parsers are defined as plugins.
+	 *
+	 * @access	private
+	 * @return	void
+	 */
+	private function initialise_text_parser()
+	{
+		$plugin_path = $this->system_folder.DS.'core'.DS.'plugins'.DS.$this->text_parser.DS;
+		require_once $plugin_path.'plugin.'.$this->text_parser.'.php';
+		$class = 'Plugin_'.$this->text_parser;
+		$this->parser = new $class;	
+	}
+
+	/**
 	 * Remove known meta keys from the content.
 	 *
 	 * @access	private
@@ -111,7 +139,6 @@ class Peanut {
 	private function remove_meta_keys()
 	{
 		$known_metas = array(
-			'slug' => '',
 			'layout' => ''
 		);
 
@@ -180,7 +207,7 @@ class Peanut {
 
 		if ($this->request == '/')
 		{
-			$this->request = DS.'index.txt';
+			$this->request = DS.'index'.$this->file_extension;
 		}
 	}
 
@@ -205,14 +232,11 @@ class Peanut {
 			// Normalise the array keys to lowercase
 			$content = array_change_key_case($content, CASE_LOWER);
 
-			if (isset($content['slug']))
-			{
-				$this->pages_content['/'.$content['slug']] = $content;
-			}
-			else
-			{
-				$this->pages_content[$request] = $content;
-			}
+			// Make sure that the indexes are suffixed with the
+			// default or user-defined file extension.
+			$request = str_replace('.txt', $this->file_extension, $request);
+
+			$this->pages_content[$request] = $content;
 		}
 	}
 

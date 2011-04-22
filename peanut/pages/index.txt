@@ -1,10 +1,9 @@
 date: 201104202313
 title: "Index page of this site"
-slug: index.html
 layout: main.html
 
 body:
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi erat odio, ornare vel pretium in, porta molestie libero. Maecenas vulputate condimentum sapien eget egestas. Praesent tempus, eros at sagittis ullamcorper, tortor tellus cursus leo, sit amet congue leo nunc sed nisl. Aliquam rutrum interdum sagittis. Pellentesque in semper mauris. Quisque eget purus tempus velit sagittis vulputate. Quisque id justo velit, sed scelerisque ante. Pellentesque at pellentesque leo. Vestibulum vitae lacus nec ligula semper laoreet. Nam ut massa purus. Nullam ante tortor, congue vel blandit sed, sollicitudin nec orci.
+	Lorem _ipsum_ dolor sit amet, consectetur adipiscing elit. Morbi erat odio, ornare vel pretium in, porta molestie libero. Maecenas vulputate condimentum sapien eget egestas. Praesent tempus, eros at sagittis ullamcorper, tortor tellus cursus leo, sit amet congue leo nunc sed nisl. Aliquam rutrum interdum sagittis. Pellentesque in semper mauris. Quisque eget purus tempus velit sagittis vulputate. Quisque id justo velit, sed scelerisque ante. Pellentesque at pellentesque leo. Vestibulum vitae lacus nec ligula semper laoreet. Nam ut massa purus. Nullam ante tortor, congue vel blandit sed, sollicitudin nec orci.
 
 	Cras porta velit sit amet orci rutrum dapibus. Donec blandit purus vel ipsum faucibus ac suscipit dolor pulvinar. Pellentesque euismod diam vitae massa fringilla nec rutrum massa convallis. Integer euismod massa eget lectus imperdiet cursus. Sed elit ante, lobortis id dignissim sed, consequat a lorem. Nunc a mi vel elit tincidunt adipiscing. Suspendisse potenti. Cras suscipit diam a est fermentum sed tristique massa ultricies. Sed id dui diam, in porttitor eros. Phasellus quis velit nec dui ornare vehicula. Sed sed quam nisi, eu venenatis diam. Curabitur arcu risus, sollicitudin sit amet aliquam nec, luctus nec mauris. Suspendisse facilisis, erat quis aliquam pellentesque, tellus mi tristique metus, sed sagittis enim quam a augue.
 
