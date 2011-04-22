@@ -48,6 +48,7 @@ class Peanut {
 		$this->load_content();
 		$this->parse_request();
 		$this->determine_content();
+		$this->remove_meta_keys();
 		$this->parse_content();
 		$this->output_content();
 	}
@@ -101,6 +102,35 @@ class Peanut {
 		}
 	}
 
+	/**
+	 * Remove known meta keys from the content.
+	 *
+	 * @access	private
+	 * @return	void
+	 */
+	private function remove_meta_keys()
+	{
+		$known_metas = array(
+			'slug' => '',
+			'layout' => ''
+		);
+
+		foreach($this->pages_content AS $key => $content)
+		{
+			$this->pages_content[$key] = array_diff_key(
+				$content,
+				$known_metas
+			);
+		}
+	}
+
+	/**
+	 * Match up the request to a defined page. If we can't do so then we'll
+	 * set the output status as 404.
+	 *
+	 * @access	private
+	 * @return 	void
+	 */
 	private function determine_content()
 	{
 		if (isset($this->pages_content[$this->request]))
@@ -113,22 +143,23 @@ class Peanut {
 				$this->output_layout = file_get_contents(
 					$layout_path.$this->unparsed_output['layout']
 				);
-
-				// Remove the layout key from the unparsed output
-				unset($this->unparsed_output['layout']);
 			}
 		}
 		else
 		{
-			if (isset($this->pages_content['/404.html']))
-			{
-				$this->output_layout = '404.html';
-			}
-
 			$this->output_status = 404;
 		}
 	}
 
+	/**
+	 * The .htaccess file effectively turns every request into a query so
+	 * we'll only check the possible server query string environment variables
+	 * and ignore everything else. We assume that all requests are prefixed
+	 * with DIRECTORY_SEPARATOR.
+	 *
+	 * @access	private
+	 * @return	void
+	 */
 	private function parse_request()
 	{
 		$keys = array(
@@ -153,6 +184,55 @@ class Peanut {
 		}
 	}
 
+	/**
+	 * Interate through the detected pages and get their contents.
+	 * This populates the $pages_content class variable. If the content
+	 * contains a slug then the $pages_content is keyed with that instead
+	 * of the page filename.
+	 *
+	 * @access	private
+	 * @return	void
+	 */
+	private function load_content()
+	{
+		$path = $this->system_folder.DS.$this->pages_folder;
+
+		foreach($this->pages AS $key => $page)
+		{
+			$request = str_replace($path, '', $page);
+			$content = Spyc::YAMLLoad($page);
+
+			// Normalise the array keys to lowercase
+			$content = array_change_key_case($content, CASE_LOWER);
+
+			if (isset($content['slug']))
+			{
+				$this->pages_content['/'.$content['slug']] = $content;
+			}
+			else
+			{
+				$this->pages_content[$request] = $content;
+			}
+		}
+	}
+
+	/**
+	 * @access	private
+	 * @return	void
+	 */
+	private function load_spyc()
+	{
+		$path = str_replace('/', DS, '/core/libraries/spyc/spyc.php');
+		require_once $this->system_folder.$path;
+	}
+
+	/**
+	 * Grab all the defined pages and assign them to the $pages
+	 * class variable.
+	 *
+	 * @access	private
+	 * @return	void
+	 */	
 	private function parse_files()
 	{
 		$pages = array();
@@ -168,32 +248,6 @@ class Peanut {
 		}
 
 		$this->pages = $pages;
-	}
-
-	private function load_content()
-	{
-		$path = $this->system_folder.DS.$this->pages_folder;
-
-		foreach($this->pages AS $key => $page)
-		{
-			$request = str_replace($path, '', $page);
-			$content = Spyc::YAMLLoad($page);
-
-			if (isset($content['slug']))
-			{
-				$this->pages_content['/'.$content['slug']] = $content;
-			}
-			else
-			{
-				$this->pages_content[$request] = $content;
-			}
-		}
-	}
-
-	private function load_spyc()
-	{
-		$path = str_replace('/', DS, '/core/libraries/spyc/spyc.php');
-		require_once $this->system_folder.$path;
 	}
 
 	private function debug($data)
