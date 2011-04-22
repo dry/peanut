@@ -21,6 +21,7 @@ $config = array(
 // Do not edit below this line
 define("PEANUT", TRUE);
 define("DS", DIRECTORY_SEPARATOR);
+define("NL", PHP_EOL);
 
 if (is_dir($config['system_folder']))
 {

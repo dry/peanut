@@ -16,6 +16,8 @@ class Peanut {
 	private $default_layout;
 	private $text_parser;
 	private $plugins_enabled;
+	private $left_delim = '{';
+	private $right_delim = '}';
 
 	// Default variables
 	private $pages_folder = 'pages';
@@ -25,6 +27,8 @@ class Peanut {
 	private $pages = array();
 	private $pages_content = array();
 	private $request;
+	private $output_layout;
+	private $unparsed_output;
 	private $output;
 	private $output_type = 'html';
 	private $output_status = 200;
@@ -43,6 +47,7 @@ class Peanut {
 		$this->load_spyc();
 		$this->load_content();
 		$this->parse_request();
+		$this->determine_content();
 		$this->parse_content();
 		$this->output_content();
 	}
@@ -57,34 +62,69 @@ class Peanut {
 		}
 
 		header($content_type, TRUE, $this->output_status);
-
 		echo $this->output;
 		exit;
 	}
 
 	private function parse_content()
 	{
-		if (isset($this->pages_content[$this->request]))
-		{
-			$page = $this->pages_content[$this->request];
+		$output = '';
 
-			if (isset($page['layout']))
+		if (isset($this->unparsed_output['body']))
+		{
+			$body = implode(NL.NL, $this->unparsed_output['body']);
+
+			$this->unparsed_output['body'] = $body;
+
+			if ($this->output_layout)
 			{
-				$layout_path = $this->system_folder.DS.'layouts'.DS;
-				$output = file_get_contents($layout_path.$page['layout']);
-				$output = str_replace('{title}', $page['title'], $output);
-				$output = str_replace('{body}', $page['body'], $output);
-				$this->output = $output;
+				$output = $this->output_layout;
+
+				foreach($this->unparsed_output AS $key => $value)
+				{
+					$output = str_replace(
+						$this->left_delim.$key.$this->right_delim,
+						$value,
+						$output
+					);
+				}
 			}
 			else
 			{
-				echo $this->pages_content[$this->request]['title'];
+				foreach($this->unparsed_output AS $key => $value)
+				{
+					$output .= $value;
+				}
+			}
+
+			$this->output = $output;
+		}
+	}
+
+	private function determine_content()
+	{
+		if (isset($this->pages_content[$this->request]))
+		{
+			$this->unparsed_output = $this->pages_content[$this->request];
+
+			if (isset($this->unparsed_output['layout']))
+			{
+				$layout_path = $this->system_folder.DS.'layouts'.DS;
+				$this->output_layout = file_get_contents(
+					$layout_path.$this->unparsed_output['layout']
+				);
+
+				// Remove the layout key from the unparsed output
+				unset($this->unparsed_output['layout']);
 			}
 		}
 		else
 		{
-			$error_layout_path = $this->system_folder.DS.'layouts'.DS.'404.html';
-			$this->output = file_get_contents($error_layout_path);
+			if (isset($this->pages_content['/404.html']))
+			{
+				$this->output_layout = '404.html';
+			}
+
 			$this->output_status = 404;
 		}
 	}
