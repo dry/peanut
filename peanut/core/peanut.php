@@ -43,6 +43,10 @@ class Peanut {
 		}
 	}
 
+	/**
+	 * @access	private
+	 * @return	void
+	 */
 	public function run()
 	{
 		$this->parse_files();
@@ -50,21 +54,33 @@ class Peanut {
 		$this->load_content();
 		$this->parse_request();
 		$this->determine_content();
+
+		if ($this->output_status == 404 AND $this->request != '/404.html')
+		{
+			header("Location: /404.html");
+			exit;
+		}
+
 		$this->remove_meta_keys();
 		$this->initialise_text_parser();
 		$this->parse_content();
-
-		$this->debug($this);exit;
-
 		$this->output_content();
 	}
 
+	/**
+	 * @access	private
+	 * @return	void
+	 */
 	private function output_content()
 	{
 		switch($this->output_type)
 		{
 			case 'html':
 				$content_type = 'Content-Type: text/html';
+			break;
+
+			case 'plain':
+				$content_type = 'Content-Type: text/plain';
 			break;
 		}
 
@@ -75,8 +91,7 @@ class Peanut {
 
 	/**
 	 * Parse the content for this request. This is where we check whether any content
-	 * keys are arrays - arrays are going to be blocks of text that should be run
-	 * through the text parser.
+	 * keys are arrays - arrays are going to be blocks of text that should be imploded. 
 	 * 
 	 * @access	private
 	 * @return	void
@@ -85,11 +100,19 @@ class Peanut {
 	{
 		$output = '';
 
-		if (isset($this->unparsed_output['body']))
+		if ( ! is_array($this->unparsed_output))
 		{
-			$body = implode(NL.NL, $this->unparsed_output['body']);
-
-			$this->unparsed_output['body'] = $this->parser->parse($body);
+			$output = $this->unparsed_output;
+		}
+		else
+		{
+			foreach($this->unparsed_output AS $key => $content)
+			{
+				if (is_array($content))
+				{
+					$this->unparsed_output[$key] = implode(NL, $content);
+				}
+			}
 
 			if ($this->output_layout)
 			{
@@ -111,9 +134,9 @@ class Peanut {
 					$output .= $value;
 				}
 			}
-
-			$this->output = $output;
 		}
+
+		$this->output = $output;
 	}
 
 	/**
@@ -152,8 +175,8 @@ class Peanut {
 	}
 
 	/**
-	 * Match up the request to a defined page. If we can't do so then we'll
-	 * set the output status as 404.
+	 * Match up the request to a defined page. If we can't do so or if there is no
+	 * content then we'll * set the output status as 404.
 	 *
 	 * @access	private
 	 * @return 	void
@@ -174,6 +197,8 @@ class Peanut {
 		}
 		else
 		{
+			$error_path = $this->system_folder.DS.'layouts'.DS.'404.html';
+			$this->unparsed_output = file_get_contents($error_path);
 			$this->output_status = 404;
 		}
 	}
@@ -229,14 +254,17 @@ class Peanut {
 			$request = str_replace($path, '', $page);
 			$content = Spyc::YAMLLoad($page);
 
-			// Normalise the array keys to lowercase
-			$content = array_change_key_case($content, CASE_LOWER);
+			if (is_array($content))
+			{
+				// Normalise the array keys to lowercase
+				$content = array_change_key_case($content, CASE_LOWER);
 
-			// Make sure that the indexes are suffixed with the
-			// default or user-defined file extension.
-			$request = str_replace('.txt', $this->file_extension, $request);
+				// Make sure that the indexes are suffixed with the
+				// default or user-defined file extension.
+				$request = str_replace('.txt', $this->file_extension, $request);
 
-			$this->pages_content[$request] = $content;
+				$this->pages_content[$request] = $content;
+			}
 		}
 	}
 
