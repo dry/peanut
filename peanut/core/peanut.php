@@ -162,6 +162,7 @@ class Peanut {
 	private function remove_meta_keys()
 	{
 		$known_metas = array(
+			'status' => '',
 			'layout' => ''
 		);
 
@@ -193,6 +194,11 @@ class Peanut {
 				$this->output_layout = file_get_contents(
 					$layout_path.$this->unparsed_output['layout']
 				);
+			}
+
+			if (isset($this->unparsed_output['status']))
+			{
+				$this->output_status = $this->unparsed_output['status'];
 			}
 		}
 		else
