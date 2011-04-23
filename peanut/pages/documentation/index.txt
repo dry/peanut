@@ -1,8 +1,11 @@
 layout:
 documentation.html
+--
 
 title:
 Peanut Documentation
+--
 
 body:
 Peanut documentation
+--

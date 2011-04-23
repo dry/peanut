@@ -49,14 +49,15 @@ class Peanut {
 	 */
 	public function run()
 	{
+		ob_start();
 		$this->parse_files();
-		$this->load_spyc();
 		$this->load_content();
 		$this->parse_request();
 		$this->determine_content();
 
 		if ($this->output_status == 404 AND $this->request != '/404.html')
 		{
+			ob_end_clean();
 			header("Location: /404.html");
 			exit;
 		}
@@ -65,6 +66,7 @@ class Peanut {
 		$this->initialise_text_parser();
 		$this->parse_content();
 		$this->output_content();
+		$output = ob_end_flush();
 	}
 
 	/**
@@ -262,15 +264,21 @@ class Peanut {
 	 */
 	private function load_content()
 	{
-		$this->process_files();
-		return;
-
 		$path = $this->system_folder.DS.$this->pages_folder;
 
 		foreach($this->pages AS $key => $page)
 		{
 			$request = str_replace($path, '', $page);
-			$content = Spyc::YAMLLoad($page);
+			$content = file_get_contents($page);
+			$content = preg_match_all('/([a-zA-Z]+):\R(.*)\-\-/Us', $content, $matches);
+			unset($matches[0]);
+			$content = array();
+			$keys = array_flip($matches[1]);
+
+			foreach($keys AS $key => $value)
+			{
+				$content[$key] = $matches[2][$value];
+			}		
 
 			if (is_array($content))
 			{
@@ -293,22 +301,21 @@ class Peanut {
 		{
 			$request = str_replace($path, '', $page);
 			$content = file_get_contents($page);
-			$content = preg_match_all('/([a-zA-Z^:]+)$/m', $content, $matches);
+			$content = preg_match_all('/([a-zA-Z]+):\R(.*)\-\-/Us', $content, $matches);
 			unset($matches[0]);
-			$this->pages_content[$request] = $matches;
+			$content = array();
+			$keys = array_flip($matches[1]);
+
+			foreach($keys AS $key => $value)
+			{
+				$content[$key] = $matches[2][$value];
+			}		
+
+			$this->pages_content[$request] = $content;
 		}
+		
 		$this->debug($this->pages_content);
 		exit;
-	}
-
-	/**
-	 * @access	private
-	 * @return	void
-	 */
-	private function load_spyc()
-	{
-		$path = str_replace('/', DS, '/core/libraries/spyc/spyc.php');
-		require_once $this->system_folder.$path;
 	}
 
 	/**
