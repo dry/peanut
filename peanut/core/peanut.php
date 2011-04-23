@@ -262,6 +262,9 @@ class Peanut {
 	 */
 	private function load_content()
 	{
+		$this->process_files();
+		return;
+
 		$path = $this->system_folder.DS.$this->pages_folder;
 
 		foreach($this->pages AS $key => $page)
@@ -281,6 +284,21 @@ class Peanut {
 				$this->pages_content[$request] = $content;
 			}
 		}
+	}
+
+	private function process_files()
+	{
+		$path = $this->system_folder.DS.$this->pages_folder;
+		foreach($this->pages AS $key => $page)
+		{
+			$request = str_replace($path, '', $page);
+			$content = file_get_contents($page);
+			$content = preg_match_all('/([a-zA-Z^:]+)$/m', $content, $matches);
+			unset($matches[0]);
+			$this->pages_content[$request] = $matches;
+		}
+		$this->debug($this->pages_content);
+		exit;
 	}
 
 	/**
