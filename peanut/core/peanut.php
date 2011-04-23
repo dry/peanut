@@ -13,7 +13,7 @@ class Peanut {
 
 	// User configurable
 	private $system_folder;
-	private $default_layout;
+	private $default_layout = 'main.html';
 	private $text_parser;
 	private $plugins_enabled;
 	private $left_delim = '{';
@@ -110,7 +110,7 @@ class Peanut {
 			{
 				if (is_array($content))
 				{
-					$this->unparsed_output[$key] = implode(NL, $content);
+					$this->unparsed_output[$key] = implode(NL.NL, $content);
 				}
 			}
 
@@ -184,17 +184,33 @@ class Peanut {
 	 */
 	private function determine_content()
 	{
+		// First we check whether the request is a page. If not i.e. it's
+		// a directory/folder then we normalise it to be suffixed with
+		// index and the user-defined file extension.
+		$ext_length = strlen($this->file_extension);
+		if (substr($this->request, -$ext_length, $ext_length) != $this->file_extension)
+		{
+			$this->request = rtrim($this->request, '/').'/';
+			$this->request .= 'index'.$this->file_extension;
+		}
+
 		if (isset($this->pages_content[$this->request]))
 		{
 			$this->unparsed_output = $this->pages_content[$this->request];
 
 			if (isset($this->unparsed_output['layout']))
 			{
-				$layout_path = $this->system_folder.DS.'layouts'.DS;
-				$this->output_layout = file_get_contents(
-					$layout_path.$this->unparsed_output['layout']
-				);
+				$layout_name = $this->unparsed_output['layout'];
 			}
+			else
+			{
+				$layout_name = $this->default_layout;
+			}
+
+			$layout_path = $this->system_folder.DS.'layouts'.DS;
+			$this->output_layout = file_get_contents(
+					$layout_path.$layout_name
+				);
 
 			if (isset($this->unparsed_output['status']))
 			{
@@ -235,18 +251,11 @@ class Peanut {
 				break;
 			}
 		}
-
-		if ($this->request == '/')
-		{
-			$this->request = DS.'index'.$this->file_extension;
-		}
 	}
 
 	/**
 	 * Interate through the detected pages and get their contents.
-	 * This populates the $pages_content class variable. If the content
-	 * contains a slug then the $pages_content is keyed with that instead
-	 * of the page filename.
+	 * This populates the $pages_content class variable.
 	 *
 	 * @access	private
 	 * @return	void

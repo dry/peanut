@@ -1,5 +1,5 @@
-date: 201104202313
-title: "Index page of this site"
+date: 22 April 2011 
+title: "Welcome to Peanut"
 layout: main.html
 
 summary:
