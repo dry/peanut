@@ -18,10 +18,11 @@ Peanut is a lightweight file-based content management system. It is ideal for br
 body:
 h2. Features
 
-* Zero configuration required
-* Multiple layouts
+* "Zero configuration required":/documentation/install.html
+* "Multiple layouts":/documentation/layouts.html
 * Layouts can be defined on a per-page basis
-* Plugin-based text parsing
+* Unlimited custom fields
+* Plugin-based text parsing (Textile is included)
 * URLs defined by file and folder structure
 * Configurable file extensions
 --
