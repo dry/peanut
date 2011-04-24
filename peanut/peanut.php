@@ -15,7 +15,6 @@ class Peanut {
 	private $system_folder;
 	private $default_layout = 'main.html';
 	private $text_parser;
-	private $plugins_enabled;
 	private $left_delim = '{';
 	private $right_delim = '}';
 	private $file_extension = '.html';
@@ -66,7 +65,7 @@ class Peanut {
 		$this->initialise_text_parser();
 		$this->parse_content();
 		$this->output_content();
-		$output = ob_end_flush();
+		ob_end_flush();
 	}
 
 	/**
@@ -149,7 +148,7 @@ class Peanut {
 	 */
 	private function initialise_text_parser()
 	{
-		$plugin_path = $this->system_folder.DS.'core'.DS.'plugins'.DS.$this->text_parser.DS;
+		$plugin_path = $this->system_folder.DS.'plugins'.DS.$this->text_parser.DS;
 		require_once $plugin_path.'plugin.'.$this->text_parser.'.php';
 		$class = 'Plugin_'.$this->text_parser;
 		$this->parser = new $class;	
@@ -202,7 +201,7 @@ class Peanut {
 
 			if (isset($this->unparsed_output['layout']))
 			{
-				$layout_name = $this->unparsed_output['layout'];
+				$layout_name = trim($this->unparsed_output['layout']);
 			}
 			else
 			{
@@ -210,9 +209,8 @@ class Peanut {
 			}
 
 			$layout_path = $this->system_folder.DS.'layouts'.DS;
-			$this->output_layout = file_get_contents(
-					$layout_path.$layout_name
-				);
+			$layout = $layout_path.$layout_name;
+			$this->output_layout = file_get_contents($layout);
 
 			if (isset($this->unparsed_output['status']))
 			{
@@ -292,30 +290,6 @@ class Peanut {
 				$this->pages_content[$request] = $content;
 			}
 		}
-	}
-
-	private function process_files()
-	{
-		$path = $this->system_folder.DS.$this->pages_folder;
-		foreach($this->pages AS $key => $page)
-		{
-			$request = str_replace($path, '', $page);
-			$content = file_get_contents($page);
-			$content = preg_match_all('/([a-zA-Z]+):\R(.*)\-\-/Us', $content, $matches);
-			unset($matches[0]);
-			$content = array();
-			$keys = array_flip($matches[1]);
-
-			foreach($keys AS $key => $value)
-			{
-				$content[$key] = $matches[2][$value];
-			}		
-
-			$this->pages_content[$request] = $content;
-		}
-		
-		$this->debug($this->pages_content);
-		exit;
 	}
 
 	/**
