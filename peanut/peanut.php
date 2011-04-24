@@ -31,7 +31,7 @@ class Peanut {
 	private $output_layout;
 	private $unparsed_output;
 	private $output;
-	private $output_type = 'html';
+	private $output_type = '.html';
 	private $output_status = 200;
 
 	public function __construct($config = array())
@@ -54,7 +54,7 @@ class Peanut {
 		$this->parse_request();
 		$this->determine_content();
 
-		if ($this->output_status == 404 AND $this->request != '/404.html')
+		if ($this->output_status == 404 AND $this->request != '/404'.$this->file_extension)
 		{
 			ob_end_clean();
 			header("Location: /404.html");

@@ -3,9 +3,25 @@ documentation.html
 --
 
 title:
-Peanut Documentation
+Introduction
+--
+
+summary:
+h2. What is it?
+
+Peanut is a lightweight file-based content management system. It is ideal for brochure-style sites or application documentation. It has no dependencies and very few requirements:
+
+* PHP 5
+* A server rewriting module
 --
 
 body:
-Peanut documentation
+h2. Features
+
+* Zero configuration required
+* Multiple layouts
+* Layouts can be defined on a per-page basis
+* Plugin-based text parsing
+* URLs defined by file and folder structure
+* Configurable file extensions
 --

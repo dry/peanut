@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^(.*)$ /404.html [R=302,L]
+RewriteRule ^(.*)$ ../ [R=302,L]
