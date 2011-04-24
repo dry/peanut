@@ -109,9 +109,9 @@ class Peanut {
 		{
 			foreach($this->unparsed_output AS $key => $content)
 			{
-				if (is_array($content))
+				if ($key != 'title')
 				{
-					$this->unparsed_output[$key] = implode(NL.NL, $content);
+					$this->unparsed_output[$key] = $this->parser->parse(trim($content));
 				}
 			}
 
