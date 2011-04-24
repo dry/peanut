@@ -28,6 +28,7 @@ class Peanut {
 	private $pages_content = array();
 	private $request;
 	private $parser;
+	private $output_layout_name;
 	private $output_layout;
 	private $unparsed_output;
 	private $output;
@@ -134,6 +135,15 @@ class Peanut {
 					$output
 				);
 			}
+
+			// Let's get rid of any leftover variables
+			// @TODO
+
+			// We sort out any dynamic layouts
+			if (substr($this->output_layout_name, -4, 4) == '.php')
+			{
+				$output = eval(' ?>'.$output.'<?php ');
+			}
 		}
 
 		$this->output = $output;
@@ -178,15 +188,15 @@ class Peanut {
 
 			if (isset($this->unparsed_output['layout']))
 			{
-				$layout_name = trim($this->unparsed_output['layout']);
+				$this->output_layout_name = trim($this->unparsed_output['layout']);
 			}
 			else
 			{
-				$layout_name = $this->default_layout;
+				$this->output_layout_name = $this->default_layout;
 			}
 
 			$layout_path = $this->system_folder.DS.'layouts'.DS;
-			$layout = $layout_path.$layout_name;
+			$layout = $layout_path.$this->output_layout_name;
 			$this->output_layout = file_get_contents($layout);
 
 			// Special layout settings
