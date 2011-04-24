@@ -1,0 +1,20 @@
+body {
+	background-color: #efefef;
+	color: #333;
+	font: normal 12px/1.5 "Lucida Grande", Arial, Helvetica, sans-serif;
+}
+
+h1 {
+	font-size: 60px;
+	margin: 0;
+}
+
+a {
+	color: #a7b108;
+}
+
+#container {
+	margin: 150px auto;
+	text-align: center;
+	width: 960px;
+}

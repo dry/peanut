@@ -13,6 +13,8 @@ Peanut is a lightweight file-based content management system. It is ideal for br
 
 * PHP 5
 * A server rewriting module
+
+There is no web-based login system or account management, pages are created as text files and immediately become live on your site. 
 --
 
 body:
@@ -25,4 +27,6 @@ h2. Features
 * Plugin-based text parsing (Textile is included)
 * URLs defined by file and folder structure
 * Configurable file extensions
+
+Go and "learn how to install Peanut":/documentation/install.html
 --
