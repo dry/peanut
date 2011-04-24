@@ -298,11 +298,4 @@ class Peanut {
 
 		$this->pages = $pages;
 	}
-
-	private function debug($data)
-	{
-		echo '<pre>';
-		print_r($data);
-		echo '</pre>';
-	}
 }
