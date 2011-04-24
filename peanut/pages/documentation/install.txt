@@ -1,0 +1,25 @@
+layout:
+documentation.html
+--
+
+title:
+Installation
+--
+
+summary:
+h2. Installation
+
+Peanut is a zero-configuration application. You can just "download":http://code.purple-dogfish.co.uk/peanut/download the package, extract the files and upload them to your webserver. That's it, Peanut is now installed!
+--
+
+body:
+h2. Detailed Instructions 
+
+* "Zero configuration required":/documentation/install.html
+* "Multiple layouts":/documentation/layouts.html
+* Layouts can be defined on a per-page basis
+* Unlimited custom fields
+* Plugin-based text parsing (Textile is included)
+* URLs defined by file and folder structure
+* Configurable file extensions
+--
