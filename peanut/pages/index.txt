@@ -1,13 +1,9 @@
 date:
-22 April 2011 
+Date: 22 April 2011 
 --
 
 title:
 Welcome to Peanut
---
-
-layout:
-main.html
 --
 
 summary:

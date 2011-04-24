@@ -80,9 +80,12 @@ class Peanut {
 				$content_type = 'Content-Type: text/html';
 			break;
 
-			case 'plain':
+			case 'text':
 				$content_type = 'Content-Type: text/plain';
 			break;
+
+			default:
+				$content_type = 'Content-Type: text/html';
 		}
 
 		header($content_type, TRUE, $this->output_status);
@@ -118,22 +121,19 @@ class Peanut {
 			if ($this->output_layout)
 			{
 				$output = $this->output_layout;
-
-				foreach($this->unparsed_output AS $key => $value)
-				{
-					$output = str_replace(
-						$this->left_delim.$key.$this->right_delim,
-						$value,
-						$output
-					);
-				}
 			}
 			else
 			{
-				foreach($this->unparsed_output AS $key => $value)
-				{
-					$output .= $value;
-				}
+				$output = $this->default_layout;
+			}
+
+			foreach($this->unparsed_output AS $key => $value)
+			{
+				$output = str_replace(
+					$this->left_delim.$key.$this->right_delim,
+					$value,
+					$output
+				);
 			}
 		}
 
@@ -159,6 +159,7 @@ class Peanut {
 	 *
 	 * @access	private
 	 * @return	void
+	 * @deprecated
 	 */
 	private function remove_meta_keys()
 	{
@@ -212,9 +213,15 @@ class Peanut {
 			$layout = $layout_path.$layout_name;
 			$this->output_layout = file_get_contents($layout);
 
+			// Special layout settings
 			if (isset($this->unparsed_output['status']))
 			{
-				$this->output_status = $this->unparsed_output['status'];
+				$this->output_status = intval($this->unparsed_output['status']);
+			}
+
+			if (isset($this->unparsed_output['type']))
+			{
+				$this->output_type = trim($this->unparsed_output['type']);
 			}
 		}
 		else
@@ -268,7 +275,7 @@ class Peanut {
 		{
 			$request = str_replace($path, '', $page);
 			$content = file_get_contents($page);
-			$content = preg_match_all('/([a-zA-Z]+):\R(.*)\-\-/Us', $content, $matches);
+			$content = preg_match_all('/([a-zA-Z]+):.*\R(.*)\-\-/Us', $content, $matches);
 			unset($matches[0]);
 			$content = array();
 			$keys = array_flip($matches[1]);
