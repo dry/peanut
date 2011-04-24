@@ -28,9 +28,13 @@ if (is_dir($config['system_folder']))
 	$config['system_folder'] = $system_folder_path;
 	$core_class_path = $system_folder_path.DS.'peanut.php';
 	require_once $core_class_path; 
+
+	error_reporting(E_ALL);
+
+	$peanut = new Peanut($config);
+	$peanut->run();
 }
-
-error_reporting(E_ALL);
-
-$peanut = new Peanut($config);
-$peanut->run();
+else
+{
+	exit('Please check that you have uploaded the system folder and that you its name is correct in the configuration array');
+}
