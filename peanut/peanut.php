@@ -61,7 +61,6 @@ class Peanut {
 			exit;
 		}
 
-		$this->remove_meta_keys();
 		$this->initialise_text_parser();
 		$this->parse_content();
 		$this->output_content();
@@ -152,29 +151,6 @@ class Peanut {
 		require_once $plugin_path.'plugin.'.$this->text_parser.'.php';
 		$class = 'Plugin_'.$this->text_parser;
 		$this->parser = new $class;	
-	}
-
-	/**
-	 * Remove known meta keys from the content.
-	 *
-	 * @access	private
-	 * @return	void
-	 * @deprecated
-	 */
-	private function remove_meta_keys()
-	{
-		$known_metas = array(
-			'status' => '',
-			'layout' => ''
-		);
-
-		foreach($this->pages_content AS $key => $content)
-		{
-			$this->pages_content[$key] = array_diff_key(
-				$content,
-				$known_metas
-			);
-		}
 	}
 
 	/**
