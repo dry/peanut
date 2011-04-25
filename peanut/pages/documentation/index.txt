@@ -20,7 +20,7 @@ There is no web-based login system or account management, pages are created as t
 body:
 h2. Features
 
-* "Zero configuration required":/documentation/install.html
+* "Zero configuration required":/documentation/configuration.html
 * "Multiple layouts":/documentation/layouts.html
 * Layouts can be defined on a per-page basis
 * Unlimited custom fields

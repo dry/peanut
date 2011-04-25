@@ -95,7 +95,8 @@ class Peanut {
 
 	/**
 	 * Parse the content for this request. This is where we check whether any content
-	 * keys are arrays - arrays are going to be blocks of text that should be imploded. 
+	 * keys are arrays - arrays are going to be blocks of text that should be implemented
+	 * as custom fields. 
 	 * 
 	 * @access	private
 	 * @return	void
@@ -136,6 +137,13 @@ class Peanut {
 				);
 			}
 
+			// Parse memory usage
+			$output = str_replace(
+				$this->left_delim.'memory_usage'.$this->right_delim,
+				$this->get_memory_usage(),
+				$output
+			);
+
 			// Let's get rid of any leftover variables
 			// @TODO
 
@@ -165,7 +173,7 @@ class Peanut {
 
 	/**
 	 * Match up the request to a defined page. If we can't do so or if there is no
-	 * content then we'll * set the output status as 404.
+	 * content then we'll set the output status as 404.
 	 *
 	 * @access	private
 	 * @return 	void
@@ -307,5 +315,19 @@ class Peanut {
 		}
 
 		$this->pages = $pages;
+	}
+
+	/**
+	 * Helper function to calculate the overall memory usage
+	 *
+	 * @access	private
+	 * @return	string	Formatted memory usage
+	 */
+	 private function get_memory_usage()
+	 {
+		$units = array('b', 'kb', 'mb', 'gb');
+		$total = memory_get_usage();
+
+		return sprintf("%01.1f", ($total / 1024)).'KB';
 	}
 }
