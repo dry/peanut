@@ -145,7 +145,8 @@ class Peanut {
 			);
 
 			// Let's get rid of any leftover variables
-			// @TODO
+			$pattern = $this->left_delim.'.*'.$this->right_delim;
+			$output = preg_replace('/'.$pattern.'/U', '', $output);		
 
 			// We sort out any dynamic layouts
 			if (substr($this->output_layout_name, -4, 4) == '.php')
