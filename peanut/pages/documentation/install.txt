@@ -9,7 +9,7 @@ Installation
 summary:
 h2. Installation
 
-Peanut is a zero-configuration application. You can just "download":http://code.purple-dogfish.co.uk/peanut/download the package, extract the files and upload them to your webserver. That's it, Peanut is now installed!
+Peanut is a zero-configuration application. You can just "download":http://code.purple-dogfish.co.uk/peanut/get/tip.zip the package, extract the files and upload them to your webserver. That's it, Peanut is now installed!
 --
 
 body:

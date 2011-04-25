@@ -20,13 +20,13 @@ There is no web-based login system or account management, pages are created as t
 body:
 h2. Features
 
-* "Zero configuration required":/documentation/configuration.html
-* "Multiple layouts":/documentation/layouts.html
+* "Zero configuration required":/documentation/configuration.txt
+* "Multiple layouts":/documentation/layouts.txt
 * Layouts can be defined on a per-page basis
 * Unlimited custom fields
 * Plugin-based text parsing (Textile is included)
 * URLs defined by file and folder structure
 * Configurable file extensions
 
-Go and "learn how to install Peanut":/documentation/install.html
+Go and "learn how to install Peanut":/documentation/install.txt
 --

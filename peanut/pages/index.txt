@@ -3,5 +3,5 @@ Welcome to Peanut
 --
 
 body:
-"Peanut is a lightweight file-based content management system.":/documentation/index.html
+"Peanut is a lightweight file-based content management system.":/documentation/index.txt
 --
