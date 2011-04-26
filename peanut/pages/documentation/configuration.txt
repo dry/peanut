@@ -15,13 +15,21 @@ Peanut is a zero-configuration application - it will work just by uploading the 
 body:
 h2. Configuration Options 
 
-"Download":http://code.purple-dogfish.co.uk/peanut/get/tip.zip the Peanut software and unzip it. You should see one file and two folders:
+The index.php contains a config array. This is where you can specify your installation-specific options. The default array looks like this:
 
-* peanut folder
-* assets folder
-* index.php file
+bc. $config = array(
+	'system_folder' => 'peanut',
+	'default_layout' => 'main.html',
+	'text_parser' => 'textile'
+);
 
-There is also an .htaccess file that in most cases won't be visible. When you copy the files from this folder to your webserver make sure to use a program that allows you to see and copy hidden files.
+You can modify these options and add others if required. They are explained below:
 
-Copy these files and folders to your webserver where you want Peanut-managed pages to appear. This does not have to be your site root.
+h3. system_folder
+
+The name of the main folder containing the Peanut files. If you change this don't forget to rename the folder appropriately.
+
+h3. default_layout
+
+Peanut uses the concept of "layouts":/documentation/layouts.txt to define how your pages should be displayed. There must be at least one layout and a simple one called main.html is in your layouts folder (by default at peanut/layouts/main.html).
 --

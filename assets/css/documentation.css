@@ -16,6 +16,14 @@ a {
 	color: #a7b108;
 }
 
+pre {
+	background-color: #f7ecce;
+	border: 1px solid #e3942c;
+	font-family: "Courier New", Courier;
+	font-size: 1em;
+	padding: 1em;
+}
+
 #container {
 	margin: 0 auto;
 	width: 100%;

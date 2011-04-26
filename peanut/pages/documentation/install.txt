@@ -9,7 +9,7 @@ Installation
 summary:
 h2. Installation
 
-Peanut is a zero-configuration application. You can just "download":http://code.purple-dogfish.co.uk/peanut/get/tip.zip the package, extract the files and upload them to your webserver. That's it, Peanut is now installed!
+Peanut is a "zero-configuration":/documentation/configuration.txt application. You can just "download":http://code.purple-dogfish.co.uk/peanut/get/tip.zip the package, extract the files and upload them to your webserver. That's it, Peanut is now installed!
 --
 
 body:
@@ -23,5 +23,5 @@ h2. Detailed Instructions
 
 There is also an .htaccess file that in most cases won't be visible. When you copy the files from this folder to your webserver make sure to use a program that allows you to see and copy hidden files.
 
-Copy these files and folders to your webserver where you want Peanut-managed pages to appear. This does not have to be your site root.
+Copy these files and folders to your webserver where you want Peanut-managed pages to appear. This does not have to be your site root. Now visit your site (or folder where you copied Peanut to) and you'll see the "welcome page(PeanutCMS)":/index.txt.
 --

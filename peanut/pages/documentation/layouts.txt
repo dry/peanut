@@ -1,0 +1,13 @@
+layout:
+documentation.html
+--
+
+title:
+Layouts
+--
+
+summary:
+h2. Layouts
+
+Layouts are the heart of the Peanut system. They allow you to display your content in any way you wish.
+--
