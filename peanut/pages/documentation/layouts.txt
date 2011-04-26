@@ -11,3 +11,11 @@ h2. Layouts
 
 Layouts are the heart of the Peanut system. They allow you to display your content in any way you wish.
 --
+
+body:
+h2. Layouts in Detail
+
+A layout is what will be presented to the browser. It has placeholders that match the "page fields":/documentation/page-fields.txt that you define. Typically, a layout will be HTML but it does not have to be. When "configuring":/documentation/configuration.txt Peanut you will define a default layout. Layouts are saved in your peanut/layouts folder. The default is what will be used if you do not a layout for a particular page. Here is the layout that is used for these documentation pages:
+
+<script src="https://gist.github.com/942431.js"> </script>
+--
