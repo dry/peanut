@@ -12,16 +12,16 @@ h1 a {
 	text-decoration: none;
 }
 
+h3 {
+	border-bottom: 1px solid #ccc;
+}
+
 a {
 	color: #a7b108;
 }
 
-pre {
-	background-color: #f7ecce;
-	border: 1px solid #e3942c;
-	font-family: "Courier New", Courier;
-	font-size: 1em;
-	padding: 1em;
+.gist-meta {
+	font: normal 0.9em/1 "Lucida Grande", Arial, Helvetica, sans-serif;
 }
 
 #container {

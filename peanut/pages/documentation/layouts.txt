@@ -17,5 +17,13 @@ h2. Layouts in Detail
 
 A layout is what will be presented to the browser. It has placeholders that match the "page fields":/documentation/page-fields.txt that you define. Typically, a layout will be HTML but it does not have to be. When "configuring":/documentation/configuration.txt Peanut you will define a default layout. Layouts are saved in your peanut/layouts folder. The default is what will be used if you do not a layout for a particular page. Here is the layout that is used for these documentation pages:
 
-<script src="https://gist.github.com/942431.js"> </script>
+notextile. <script src="https://gist.github.com/942431.js"> </script>
+
+You can see the title, summary and body field variables that have been defined the page. If a matching field is not found in the page then the variable will be removed. You can also see another variable called memory usage. This is one of the "global variables":/documentation/global-variables.txt available in Peanut.
+
+The page that populates this layout is:
+
+notextile. <script src="https://gist.github.com/942687.js"> </script>
+
+This is an example of a content page with four "page fields":/documentation/page-fields.txt (layout, title, summary and body). Notice how only the title, summary and body are reflected in the template. The layout field tells Peanut to render the layout shown above when this page is shown.
 --

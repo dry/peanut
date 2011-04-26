@@ -153,21 +153,6 @@ class Peanut {
 				}
 			}
 
-			// Do we need to display a breadcrumb?
-			// @TODO
-			if (strpos($output, $this->left_delim.'breadcrumb'.$this->right_delim))
-			{
-				$crumbs = explode('/', $this->request);
-				print_r($crumbs);
-				$crumbs_output = '<ul>'.NL;
-				foreach($crumbs AS $key => $crumb)
-				{
-					$crumbs_output .= '<li><a href="/'.$crumb.'">'.$crumb.'</a></li>'.NL;
-				}
-				$crumbs_output .= '</ul>'.NL;
-				print_r($crumbs_output);
-			}
-
 			// Parse memory usage
 			$output = str_replace(
 				$this->left_delim.'memory_usage'.$this->right_delim,

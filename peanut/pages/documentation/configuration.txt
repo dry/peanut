@@ -17,11 +17,7 @@ h2. Configuration Options
 
 The index.php contains a config array. This is where you can specify your installation-specific options. The default array looks like this:
 
-bc. $config = array(
-	'system_folder' => 'peanut',
-	'default_layout' => 'main.html',
-	'text_parser' => 'textile'
-);
+<script src="https://gist.github.com/942570.js"> </script>
 
 You can modify these options and add others if required. They are explained below:
 
@@ -32,4 +28,20 @@ The name of the main folder containing the Peanut files. If you change this don'
 h3. default_layout
 
 Peanut uses the concept of "layouts":/documentation/layouts.txt to define how your pages should be displayed. There must be at least one layout and a simple one called main.html is in your layouts folder (by default at peanut/layouts/main.html).
+
+h3. text_parser
+
+All page custom fields except the title are run through a text parser. "Textile":http://www.textism.com/tools/textile is provided and is the default though you can use another one if it is available. The text parsers are Peanut "plugins":/documentation/plugins.txt.
+
+h2. Additional Options
+
+There are a number of other options that can be set if required.
+
+h3(#file_extension). file_extension
+
+By default all individual pages will be suffixed by .html for browser requests. You can change this to whatever you wish. Just make sure to include the dot with the extension. Don't forget that all pages should be saved with a .txt extension. The extension shown when browsing is dynamic dependent upon this setting.
+
+h3. left_delim/right_delim
+
+You can modify the variable delimiters used in "layouts":/documentation/layouts.txt if required. By default they are set to { and }.
 --

@@ -22,11 +22,11 @@ h2. Features
 
 * "Zero configuration required":/documentation/configuration.txt
 * "Multiple layouts":/documentation/layouts.txt
-* Layouts can be defined on a per-page basis
-* Unlimited custom fields
-* Plugin-based text parsing (Textile is included)
-* URLs defined by file and folder structure
-* Configurable file extensions
+* "Layouts can be defined on a per-page basis":/documentation/pages.txt
+* "Unlimited custom fields":/documentation/page-fields.txt
+* "Plugin-based text parsing (Textile is included)":/documentation/plugins.txt
+* "URLs defined by file and folder structure":/documentation/pages.txt
+* "Configurable file extensions":/documentation/configuration.txt
 
 Go and "learn how to install Peanut":/documentation/install.txt
 --
