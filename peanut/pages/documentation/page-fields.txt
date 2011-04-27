@@ -1,0 +1,21 @@
+layout:
+documentation.html
+--
+
+title:
+Page Custom Fields
+--
+
+summary:
+h2. Page Custom Fields
+
+Your page files don't just have to be single blocks of text that can only replace one content area in a layout. They can contain multiple custom fields as well as fields of meta data.
+--
+
+body:
+A page file is a simple text file but it's structured as custom fields. Each field has a label, its content and a end marker. The field label is the word or phrase that is used to reference the field contents in a layout. The label must be immediately suffixed by a colon and a newline. From that newline, everything you type until the end marker will be part of that field contents. The end marker is two dashes on a line on their own. This page (the one that you are now reading) is called page-fields.txt and its partial contents are:
+
+notextile. <script src="https://gist.github.com/943413.js"></script>
+
+You can see that this page specifies the layout to be used to render this page. The documentation.layout happens to have three custom field variables for replacement (title, summary and body) but additional custom fields could be added and they would just be ignored in the layout.
+--

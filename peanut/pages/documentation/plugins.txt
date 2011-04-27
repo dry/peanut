@@ -1,0 +1,13 @@
+layout:
+documentation.html
+--
+
+title:
+Plugins
+--
+
+summary:
+h2. Plugins
+
+
+--

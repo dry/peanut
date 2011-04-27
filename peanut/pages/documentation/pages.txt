@@ -17,7 +17,23 @@ h2. Pages in Detail
 
 The Peanut system folder contains a folder called pages. This is where your content goes in the form of simple text files with a .txt extension. The heirarchy of files and folders in the pages folder directly maps to the URIs in your site. For example, my pages folder has this structure:
 
-notextile. <script src="https://gist.github.com/942887.js"> </script>
+notextile. <script src="https://gist.github.com/942887.js"></script>
 
 This means that the contents of the index.txt file will be display at the Peanut site root. My documentation folder also has an index.txt file and that will be displayed at documentation/ and at documentation/index."ext":/documentation/configuration.txt#file_extension.
+
+My documentation directory contains these files:
+
+notextile. <script src="https://gist.github.com/943297.js"></script>
+
+
+Therefore these pages will now be live on my site:
+
+* index.html
+* documentation (and documentation/index.html)
+* documentation/configuration.html
+* documentation/install.html
+* documentation/layout.html
+* documentation/pages.html
+
+Your pages can contain any number of "custom fields":/documentation/page-fields.txt.
 --

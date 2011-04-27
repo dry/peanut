@@ -43,5 +43,5 @@ By default all individual pages will be suffixed by .html for browser requests. 
 
 h3. left_delim/right_delim
 
-You can modify the variable delimiters used in "layouts":/documentation/layouts.txt if required. By default they are set to { and }.
+You can modify the variable delimiters used in "layouts":/documentation/layouts.txt if required. By default they are set to curly brackets.
 --
