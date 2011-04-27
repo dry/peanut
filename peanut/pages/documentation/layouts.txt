@@ -26,4 +26,6 @@ The page that populates this layout is:
 notextile. <script src="https://gist.github.com/942687.js"> </script>
 
 This is an example of a content page with four "page fields":/documentation/page-fields.txt (layout, title, summary and body). Notice how only the title, summary and body are reflected in the template. The layout field tells Peanut to render the layout shown above when this page is shown.
+
+If a layout has a .php extension then the contents of that layout will be evaluated after the page has been rendered. This enables you to add some dynamic features if required.
 --

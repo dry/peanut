@@ -9,5 +9,5 @@ Plugins
 summary:
 h2. Plugins
 
-
+Plugins are primarily used to provide text parser but they can be used to modify the output or perform other actions within your site.
 --
