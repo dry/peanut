@@ -15,6 +15,7 @@ $config = array(
 	'system_folder' => 'peanut',
 	'default_layout' => 'main.html',
 	'text_parser' => 'textile',
+	'file_extension' => '.file',
 );
 
 // Do not edit below this line
@@ -36,5 +37,5 @@ if (is_dir($config['system_folder']))
 }
 else
 {
-	exit('Please check that you have uploaded the system folder and that you its name is correct in the configuration array');
+	exit('Please check that you have uploaded the system folder and that its name is correct in the configuration array');
 }

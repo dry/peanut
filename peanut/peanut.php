@@ -58,7 +58,7 @@ class Peanut {
 		if ($this->output_status == 404 AND $this->request != '/404'.$this->file_extension)
 		{
 			ob_end_clean();
-			header("Location: /404.html");
+			header("Location: /404".$this->file_extension);
 			exit;
 		}
 
