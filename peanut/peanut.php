@@ -3,11 +3,11 @@
   * ------------------------------------------------------------------
   * Peanut File-based CMS
   * ------------------------------------------------------------------
-  * @package	PeanutCMS	
+  * @package	Peanut	
   * @author		Purple Dogfish Ltd <hello@purple-dogfish.co.uk>	
   * @copyright	Copyright (c) 2011, Purple Dogfish Ltd 
-  * @license	http://peanutcms.com/documentation/license.html
-  * @link		http://peanutcms.com
+  * @license	see LICENCE
+  * @link		http://purple-dogfish.co.uk
  */
 class Peanut {
 

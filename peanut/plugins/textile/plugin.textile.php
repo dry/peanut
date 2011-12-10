@@ -1,5 +1,14 @@
 <?php
-
+/**
+  * ------------------------------------------------------------------
+  * Peanut File-based CMS
+  * ------------------------------------------------------------------
+  * @package	Peanut	
+  * @author		Purple Dogfish Ltd <hello@purple-dogfish.co.uk>	
+  * @copyright	Copyright (c) 2011, Purple Dogfish Ltd 
+  * @license	see LICENCE
+  * @link		http://purple-dogfish.co.uk
+ */
 class Plugin_textile {
 
 	private $settings = array();
